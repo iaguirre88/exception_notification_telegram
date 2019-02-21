@@ -21,8 +21,23 @@ Or install it yourself as:
     $ gem install exception_notification_telegram
 
 ## Usage
+In order to receive exceptions in Telegram, you need to create a [Telegram Channel](https://telegram.org/tour/channels) and a [Telegram Bot](https://core.telegram.org/bots). Then, add the bot to the channel from the Telegram app.
 
-TODO: Write usage instructions here
+To configure it, you need to set the channel name and the bot token, like this:
+
+```ruby
+Rails.application.config.middleware.use ExceptionNotification::Rack,
+                                        email: {
+                                          email_prefix: '[PREFIX] ',
+                                          sender_address: %{"notifier" <notifier@example.com>},
+                                          exception_recipients: %w{exceptions@example.com}
+                                        },
+                                        telegram: {
+					  token: 'TELEGRAM-TOKEN',
+                                          channel: '@channel_name'
+                                        }
+```
+
 
 ## Development
 
