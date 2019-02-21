@@ -1,5 +1,5 @@
 require 'exception_notification_telegram/version'
-require 'HTTParty'
+require 'httparty'
 require 'json'
 
 module ExceptionNotifier
