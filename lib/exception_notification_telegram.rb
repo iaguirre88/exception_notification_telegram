@@ -1,5 +1,6 @@
 require 'exception_notification_telegram/version'
 require 'HTTParty'
+require 'json'
 
 module ExceptionNotifier
   class TelegramNotifier
@@ -39,7 +40,7 @@ module ExceptionNotifier
       text = [
         header,
         '',
-        "⚠️ Error 500 in #{Rails.env} ⚠️",
+        "⚠️ Error 500 in #{defined?(Rails) ? Rails.env : 'N/A'} ⚠️",
         "*#{exception.message.tr('`', "'")}*"
       ]
 
