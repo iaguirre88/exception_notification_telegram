@@ -94,11 +94,11 @@ module ExceptionNotifier
     end
 
     def app_name
-      @app_name ||= options[:app_name] || rails_app_name || 'N/A'
+      options[:app_name] || rails_app_name || 'N/A'
     end
 
     def errors_count
-      @errors_count ||= options[:accumulated_errors_count].to_i
+      options[:accumulated_errors_count].to_i
     end
 
     def rails_app_name
@@ -106,8 +106,7 @@ module ExceptionNotifier
     end
 
     def controller_text
-      env = options[:env]
-      controller = env ? env['action_controller.instance'] : nil
+      controller = options.dig(:env, 'action_controller.instance')
 
       " in *#{controller.controller_name}##{controller.action_name}*" if controller
     end
