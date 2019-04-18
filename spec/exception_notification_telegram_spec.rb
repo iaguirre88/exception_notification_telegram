@@ -37,6 +37,13 @@ RSpec.describe ExceptionNotificationTelegram do
     end
   end
 
+  context 'with invalid options' do
+    it 'raises an error' do
+      expect { ExceptionNotifier::TelegramNotifier.new }
+        .to raise_error(ArgumentError)
+    end
+  end
+
   private
 
   def fake_exception

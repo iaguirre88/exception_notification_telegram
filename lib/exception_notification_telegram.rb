@@ -7,8 +7,8 @@ module ExceptionNotifier
     def initialize(options)
       @token = options.delete(:token)
       @channel = options.delete(:channel)
-    rescue StandarError
-      @token = @channel = nil
+
+      raise ArgumentError, "You must provide 'token' and 'channel' option" unless @token && @channel
     end
 
     def call(exception, options = {})
