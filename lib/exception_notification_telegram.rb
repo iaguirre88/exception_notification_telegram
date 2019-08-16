@@ -1,3 +1,4 @@
+require 'exception_notification'
 require 'exception_notification_telegram/version'
 require 'httparty'
 require 'json'
@@ -14,6 +15,8 @@ module ExceptionNotifier
     def call(exception, options = {})
       @options = options
       @exception = exception
+
+      @formatter = Formatter.new(exception, options)
 
       url = "https://api.telegram.org/bot#{@token}/sendMessage"
       HTTParty.post(url, httparty_options)
@@ -38,77 +41,26 @@ module ExceptionNotifier
 
     def message
       text = [
-        header,
+        "\nApplication: *#{@formatter.app_name || 'N/A'}*",
+        @formatter.subtitle,
         '',
-        "⚠️ Error 500 in #{defined?(Rails) ? Rails.env : 'N/A'} ⚠️",
+        @formatter.title,
         "*#{exception.message.tr('`', "'")}*"
       ]
 
-      text += message_request
-      text += message_backtrace
+      if (request = @formatter.request_message.presence)
+        text << ''
+        text << '*Request:*'
+        text << request
+      end
+
+      if (backtrace = @formatter.backtrace_message.presence)
+        text << ''
+        text << '*Backtrace:*'
+        text << backtrace
+      end
 
       text.join("\n")
-    end
-
-    def header
-      text = ["\nApplication: *#{app_name}*"]
-
-      errors_text = errors_count > 1 ? errors_count : 'An'
-      text << "#{errors_text} *#{exception.class}* occured#{controller_text}."
-
-      text
-    end
-
-    def message_request
-      return [] unless (env = options[:env])
-
-      request = ActionDispatch::Request.new(env)
-
-      [
-        '',
-        '*Request:*',
-        '```',
-        "* url : #{request.original_url}",
-        "* http_method : #{request.method}",
-        "* ip_address : #{request.remote_ip}",
-        "* parameters : #{request.filtered_parameters}",
-        "* timestamp : #{Time.current}",
-        '```'
-      ]
-    end
-
-    def message_backtrace
-      backtrace = exception.backtrace
-
-      return [] unless backtrace
-
-      text = []
-
-      text << ''
-      text << '*Backtrace:*'
-      text << '```'
-      backtrace.first(3).each { |line| text << "* #{line}" }
-      text << '```'
-
-      text
-    end
-
-    def app_name
-      options[:app_name] || rails_app_name || 'N/A'
-    end
-
-    def errors_count
-      options[:accumulated_errors_count].to_i
-    end
-
-    def rails_app_name
-      Rails.application.class.name.underscore if defined?(Rails)
-    end
-
-    def controller_text
-      controller = options.dig(:env, 'action_controller.instance')
-
-      " in *#{controller.controller_name}##{controller.action_name}*" if controller
     end
   end
 end

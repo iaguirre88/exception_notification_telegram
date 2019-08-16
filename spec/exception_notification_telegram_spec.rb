@@ -62,9 +62,9 @@ RSpec.describe ExceptionNotificationTelegram do
   def expected_message
     '
 Application: *N/A*
-An *ZeroDivisionError* occured.
+A *ZeroDivisionError* occurred.
 
-⚠️ Error 500 in N/A ⚠️
+⚠️ Error occurred ⚠️
 *some message*
 
 *Backtrace:*
