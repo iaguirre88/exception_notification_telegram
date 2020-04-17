@@ -8,7 +8,7 @@ gemfile do
   source 'https://rubygems.org'
 
   gem 'rails', '5.0.0'
-  gem 'exception_notification', '4.3.0'
+  gem 'exception_notification', '4.4.0'
   gem 'exception_notification_telegram', path: '../../exception_notification_telegram'
 end
 
