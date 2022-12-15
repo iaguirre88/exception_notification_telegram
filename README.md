@@ -1,7 +1,8 @@
 # Exception Notification - Telegram Notifier
 
 [![Gem Version](https://badge.fury.io/rb/exception_notification_telegram.svg)](https://badge.fury.io/rb/exception_notification_telegram)
-[![Build Status](https://travis-ci.com/iaguirre88/exception_notification_telegram.svg?branch=master)](https://travis-ci.com/iaguirre88/exception_notification_telegram)
+[![Build Status](https://github.com/iaguirre88/exception_notification_telegram/actions/workflows/ruby.yml/badge.svg)](https://github.com/iaguirre88/exception_notification_telegram/actions/workflows/ruby.yml)
+
 
 ---
 
