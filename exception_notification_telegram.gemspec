@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/iaguirre88/exception_notification_telegram"
   spec.license       = "MIT"
 
-  spec.required_ruby_version = '~> 2.4'
+  spec.required_ruby_version = '>= 2.3'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -29,5 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.8"
 
   spec.add_dependency "exception_notification", "~> 4.4"
-  spec.add_dependency "httparty", "~> 0.13.2"
+  spec.add_dependency "httparty", "~> 0.20.0"
 end
