@@ -8,7 +8,7 @@
 The [Exception Notification](https://github.com/smartinez87/exception_notification) gem provides a set of notifiers for sending notifications when errors occur in a Rack/Rails application. This gem adds support for delivering notifications to Telegram.
 
 ## Requirements
-* Ruby 2.3 or greater
+* Ruby 2.7 or greater
 
 ## Installation
 
